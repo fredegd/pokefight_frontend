@@ -1,15 +1,26 @@
 import React from 'react';
-import './App.css'
 
+import './index.css';
+import { Router, Routes, Route } from 'react-router-dom';
 import FetchRandom from './components/FetchRandomPokemon';
-function App() {
+// import PokemonList from "./components/PokemonList";
+// import PokemonFight from "./components/PokemonFight";
+
+
+const App = () => {
 
   return (
-    <>
-      <FetchRandom/>
-    </>
-  )
+    <div className="App">
+      <Navbar />
+      <Router>
+        <Routes>
+          <Route exact path="/" element={<PokemonList />} />
+          <Route exact path="/pokemon/:id" element={<PokemonDetail />} />
+          <Route exact path="/fight/" element={<PokemonFight />} />
+        </Routes>
+      </Router>
+    </div>
+  );
 }
 
-
-export default App
+export default App;
