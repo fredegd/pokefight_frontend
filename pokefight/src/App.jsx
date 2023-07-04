@@ -1,6 +1,8 @@
 import React from 'react';
+
 import './index.css';
 import { Router, Routes, Route } from 'react-router-dom';
+import FetchRandom from './components/FetchRandomPokemon';
 // import PokemonList from "./components/PokemonList";
 // import PokemonFight from "./components/PokemonFight";
 
