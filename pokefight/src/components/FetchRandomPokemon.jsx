@@ -14,24 +14,36 @@ export default function FetchRandom() {
       .catch((err) => console.error(err, "URL not found"));
   }, []);
 
+  useEffect(() => {
+    selectRandomPokemon();
+  }, [pokemonList]);
   const selectRandomPokemon = () => {
-    const shuffled = [...pokemonList];
-    for (let i = shuffled.length - 1; i > 0; i--) {
+    const randomPokeList = [...pokemonList];
+    for (let i = randomPokeList.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      [randomPokeList[i], randomPokeList[j]] = [
+        randomPokeList[j],
+        randomPokeList[i],
+      ];
     }
-    const selected = shuffled.slice(0, 16);
+    const selected = randomPokeList.slice(0, 16);
     setSelectedPokemon(selected);
-    // console.log(selected);
+    console.log(selected);
   };
   return (
     <div>
-      <button onClick={selectRandomPokemon} disabled={pokemonList.length === 0}>
-        Randomize
-      </button>
-      {selectedPokemon.map((pokemon) => {
-        return <h1>{pokemon.name.english}</h1>;
-      })}
+      {/* <button onClick={selectRandomPokemon} >
+        Get 16 Random Pokemon
+      </button> */}
+
+      {selectedPokemon !== [] &&
+        selectedPokemon.map((pokemon) => {
+          return (
+            <div key={pokemon.id}>
+              <h1>{pokemon.name.english}</h1>
+            </div>
+          );
+        })}
     </div>
   );
 }
