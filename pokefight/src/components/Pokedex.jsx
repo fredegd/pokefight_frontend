@@ -4,7 +4,8 @@ import axios, { AxiosError } from "axios";
 import PokemonThumbnail from "./PokemonThumbnail";
 export default function pokedex() {
   const [pokemonList, setPokemonList] = useState([]);
-  const [pokemonThumbnails, setPokemonThumbnails] = useState({});
+  const [pokemonThumbnails, setPokemonThumbnails] = useState([]);
+  const [paged, setPaged] = useState([]);
 
   useEffect(() => {
     axios
@@ -14,41 +15,36 @@ export default function pokedex() {
       })
       .catch((err) => console.error(err, "URL not found"));
   }, []);
-
-  pokemonList.map((pokemon) => {
-    if(pokemon.name.english != null){
-      const stringLowered = pokemon.name.english.toLowerCase();
-      const url = `https://pokeapi.co/api/v2/pokemon/${stringLowered}`;
-  
-      axios
-        .get(url)
-        .then((response) => {
-         //console.log(response.data)
-          const {name, sprites}= response.data
-          if (sprites){
-            console.log(name,sprites.front_default)
-  
-          }
-        //  setPokemonThumbnails({name, sprites})
-        })
-        .catch((err) => console.log(err));
-    }
+let arr = []
+  useEffect(() => {
+   for (let i = 1; i < 21; i++) {
+    axios
+    .get(`https://pokeapi.co/api/v2/pokemon/${i}`)
+    .then((response) => {
+      const{name,sprites}=response.data
+      // console.log(response.data)
+      arr.push({name,sprites})
+    })
+    .catch((err) => console.error(err, "URL not found"));
     
-  });
+   }
+   setPaged(arr);
+  }, []);
 
+  
   return (
     <>
-      {/* <div className="player">
+      <div className="player">
         <h1>POKEDEX</h1>
-        {pokemonList != [] &&
-          pokemonList.map((pokemon) => {
+        {paged!=[] &&
+          paged.map((pokemon) => {
             return (
-              <div key={pokemon.id}>
-                <PokemonThumbnail pokemon={pokemon} thumbnail={thumbnail} />
+              <div key={pokemon.name}>
+                <PokemonThumbnail pokemon={pokemon} />
               </div>
             );
           })}
-      </div> */}
+      </div>
     </>
   );
 }
