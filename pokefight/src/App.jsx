@@ -1,26 +1,19 @@
-import React from 'react';
-
-import './index.css';
-import { Router, Routes, Route } from 'react-router-dom';
-import FetchRandom from './components/FetchRandomPokemon';
+import React from "react";
+import { useState } from "react";
+import "./index.css";
+import { Routes, Route } from "react-router-dom";
+import Fight from "./components/Fight";
+import FetchRandomPokemon from "./components/FetchRandomPokemon";
 // import PokemonList from "./components/PokemonList";
 // import PokemonFight from "./components/PokemonFight";
-
-
+const amount = 3;
 const App = () => {
-
   return (
     <div className="App">
-      <Navbar />
-      <Router>
-        <Routes>
-          <Route exact path="/" element={<PokemonList />} />
-          <Route exact path="/pokemon/:id" element={<PokemonDetail />} />
-          <Route exact path="/fight/" element={<PokemonFight />} />
-        </Routes>
-      </Router>
+      <FetchRandomPokemon playerNumber={"1"} pokemonAmount={amount}/>
+      <FetchRandomPokemon playerNumber={"2"} pokemonAmount={amount}/>
     </div>
   );
-}
+};
 
 export default App;
