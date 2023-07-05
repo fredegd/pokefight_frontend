@@ -1,18 +1,28 @@
 import React from "react";
-import { useState } from "react";
+import { Route, Routes} from "react-router-dom";
+
+import Navigation from "./components/Navigation";
+import Pokedex from "./components/Pokedex"
+import FightEnvironment from "./components/FightEnvironment"
+import Leaderboard from "./components/Leaderboard"
+
 import "./index.css";
-import { Routes, Route } from "react-router-dom";
-import Fight from "./components/Fight";
-import FetchRandomPokemon from "./components/FetchRandomPokemon";
-// import PokemonList from "./components/PokemonList";
-// import PokemonFight from "./components/PokemonFight";
+import Landing from "./components/Landing";
 const amount = 3;
 const App = () => {
   return (
-    <div className="App">
-      <FetchRandomPokemon playerNumber={"1"} pokemonAmount={amount}/>
-      <FetchRandomPokemon playerNumber={"2"} pokemonAmount={amount}/>
-    </div>
+    <>
+<Navigation />
+      <div className="pages">
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/pokedex" element={<Pokedex />} />
+          <Route path="/fight" element={<FightEnvironment />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
+        </Routes>
+      </div>
+    </>
+   
   );
 };
 

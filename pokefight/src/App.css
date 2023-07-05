@@ -5,3 +5,8 @@
   padding: 2rem;
   text-align: center;
 }
+
+body{
+  display: flex;
+  flex-direction: row;
+}

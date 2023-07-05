@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios, { AxiosError } from "axios";
 
-export default function FetchRandomPokemon({ playerNumber, pokemonAmount }) {
+export default function FetchRandomPokemon({ playerName, pokemonAmount }) {
   const [randomSelection, setRandomSelection] = useState([]);
 
   useEffect(() => {
@@ -26,8 +26,8 @@ export default function FetchRandomPokemon({ playerNumber, pokemonAmount }) {
 
   return (
     <>
-      <div>
-        <h1>player {playerNumber}</h1>
+      <div className="player">
+        <h1>player {playerName}</h1>
         {randomSelection != [] &&
           randomSelection.map((pokemon) => {
             return (
