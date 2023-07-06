@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios, { AxiosError } from "axios";
 import PokemonCard from "./PokemonCard";
-
+import "../App.css"
 export default function FetchRandomPokemon({ playerName, pokemonAmount, selection, setSelection }) {
   const [randomSelection, setRandomSelection] = useState([]);
 
@@ -25,22 +25,19 @@ export default function FetchRandomPokemon({ playerName, pokemonAmount, selectio
       .catch((err) => console.error(err, "URL not found"));
   }, []);
 
-  const handleClick = (id) => {
-    console.log(id,"was selected")
-    setSelection(id)
-   // console.log(`${pokemon.name.english} was selected!`);
-  };
+ 
 
+  
   return (
     <>
-      <div className="player">
-        <h1>player {playerName}</h1>
-        {randomSelection != [] &&
+      <div className="random-Selection" >
+        {randomSelection != [] && 
+         !selection &&
           randomSelection.map((pokemon) => {
-            console.log(pokemon,"fetchingR")
             return (
-              <div className="" key={pokemon.id} >
-                <PokemonCard pokemon={pokemon} onClick={handleClick(pokemon.id)} />
+              <div key={pokemon.id}  onClick={() => setSelection(pokemon.id)} >
+
+                <PokemonCard pokemon={pokemon} selection={selection} setSelection={setSelection}/>
               </div>
             );
           })}
