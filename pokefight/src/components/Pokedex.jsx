@@ -20,7 +20,7 @@ export default function Pokedex() {
     axios
       .get(url)
       .then((response) => {
-        console.log(response.data, "RESPONSE");
+        console.log(response.data);
         setNext(response.data.next);
         setPrevious(response.data.previous);
         setPokemonArray(response.data.results);
