@@ -1,50 +1,52 @@
 import { useState, useEffect } from "react";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
+import PokemonList from "./PokemonList";
+import Pagination from "./Pagination";
 
-import PokemonThumbnail from "./PokemonThumbnail";
-export default function pokedex() {
-  const [pokemonList, setPokemonList] = useState([]);
-  const [pokemonThumbnails, setPokemonThumbnails] = useState([]);
-  const [paged, setPaged] = useState([]);
+export default function Pokedex() {
+  const [pokemonArray, setPokemonArray] = useState([]);
+  // next and previous are the next and previous url that are used for pagination
+  const [next, setNext] = useState("");
+  const [previous, setPrevious] = useState("");
 
+  // offset=0&limit=20 these are query parameters, they are used to filter the date that you get from the path
+  const [url, setUrl] = useState(
+    "https://pokeapi.co/api/v2/pokemon?offset=0&limit=30"
+  );
+
+  // the useEffect function will run once after the initial mounting of the app component
+  // the useEffect function will run again every time the url state is set with a new value by it's own state setter
   useEffect(() => {
     axios
-      .get(`https://pokefight-gmoc.onrender.com/pokemon`)
+      .get(url)
       .then((response) => {
-        setPokemonList(response.data);
+        console.log(response.data, "RESPONSE");
+        setNext(response.data.next);
+        setPrevious(response.data.previous);
+        setPokemonArray(response.data.results);
       })
-      .catch((err) => console.error(err, "URL not found"));
-  }, []);
-let arr = []
-  useEffect(() => {
-   for (let i = 1; i < 21; i++) {
-    axios
-    .get(`https://pokeapi.co/api/v2/pokemon/${i}`)
-    .then((response) => {
-      const{name,sprites}=response.data
-      // console.log(response.data)
-      arr.push({name,sprites})
-    })
-    .catch((err) => console.error(err, "URL not found"));
-    
-   }
-   setPaged(arr);
-  }, []);
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [url]);
 
-  
   return (
     <>
-      <div className="player">
-        <h1>POKEDEX</h1>
-        {paged!=[] &&
-          paged.map((pokemon) => {
-            return (
-              <div key={pokemon.name}>
-                <PokemonThumbnail pokemon={pokemon} />
-              </div>
-            );
-          })}
+      <div className="Pokedex">
+        <h1>Pokemon</h1>
+        <PokemonList pokemonArray={pokemonArray} />
+        <Pagination next={next} previous={previous} setUrl={setUrl} />
+        {/* footer */}
       </div>
     </>
   );
 }
+
+// useEffect(() => {
+//   axios
+//     .get(`https://pokefight-gmoc.onrender.com/pokemon`)
+//     .then((response) => {
+//       setPokemonList(response.data);
+//     })
+//     .catch((err) => console.error(err, "URL not found"));
+// }, []);

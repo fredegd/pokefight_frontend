@@ -4,30 +4,34 @@ import  axios  from "axios";
 
 
 export default function PokemonDetail() {
-    const navigate = useNavigate();
-    const { pokemonName } = useParams();
-    const [pokemonDetails, setPokemonDetails] = useState({});
+  const [pokemonInfo, setPokemonInfo] = useState();
 
-    useEffect(() => {
-        axios
-          .get(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
-          .then((response) => {
-       
-           const {name,sprites}=response.data
-            setPokemonDetails({sprites,name})
-          })
-          .catch((err) => console.error(err, "URL not found"));
-      }, []);
-      console.log(pokemonDetails)
+  useEffect(() => {
+    axios
+      .get(pokemon.url)
+      .then((response) => {
+        setPokemonInfo(response.data);
+        console.log(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    }, []);
+
+
   return (
-    <div>
-        <h1>{pokemonDetails.name}</h1>
-       { pokemonDetails.sprites.front_default &&
-        <img src={pokemonDetails.sprites.front_default} alt={pokemonDetails.name} />
+    <>
+     {pokemonInfo && (
+        <div className="pokemon-details">
+          <img src={pokemonInfo.sprites.back_default} alt={pokemon.name} />
+          <img src={pokemonInfo.sprites.front_default} alt={pokemon.name} />
+          {pokemonInfo.types.map((item) => {
+            return <p key={item.type.name}> {item.type.name} </p>;
+          })}
+        </div>
+      )}
+    </>
+    
 
-        }
-      
-        
-    </div>
   )
 }
