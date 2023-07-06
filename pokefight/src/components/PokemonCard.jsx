@@ -1,7 +1,12 @@
 import React from 'react'
 
-export default function PokemonCard() {
+export default function PokemonCard({pokemon}) {
+  console.log(pokemon)
+  
+
   return (
-    <div>PokemonCard</div>
+    <div>
+      <h2 >{pokemon.name.english}</h2>
+    </div>
   )
 }
