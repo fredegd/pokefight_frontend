@@ -3,7 +3,7 @@ import axios from "axios";
 import PokemonList from "./PokemonList";
 import Pagination from "./Pagination";
 
-export default function Pokedex() {
+export default function Pokedex({setDetailId}) {
   const [pokemonArray, setPokemonArray] = useState([]);
   // next and previous are the next and previous url that are used for pagination
   const [next, setNext] = useState("");
@@ -34,7 +34,7 @@ export default function Pokedex() {
     <>
       <div className="Pokedex">
         <h1>Pokemon</h1>
-        <PokemonList pokemonArray={pokemonArray} />
+        <PokemonList pokemonArray={pokemonArray}setDetailId={setDetailId} />
         <Pagination next={next} previous={previous} setUrl={setUrl} />
         {/* footer */}
       </div>
