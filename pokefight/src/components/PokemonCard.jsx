@@ -22,6 +22,7 @@ const PokemonCards = () => {
     fetchPokemonData();
   }, []);
 
+
   return (
     <div className="container">
       <h1>Pokemon Cards</h1>
@@ -61,3 +62,4 @@ const PokemonCards = () => {
 };
 
 export default PokemonCards;
+

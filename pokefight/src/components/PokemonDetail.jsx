@@ -4,6 +4,7 @@ import  axios  from "axios";
 
 
 export default function PokemonDetail() {
+  const params = useParams
   const [pokemonInfo, setPokemonInfo] = useState();
 
   useEffect(() => {
