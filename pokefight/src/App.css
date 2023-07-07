@@ -19,6 +19,17 @@ body {
   padding: 10px;
 }
 
+.card{
+  width: 10em;
+  height: 14em;
+}
+
+.random-selection{
+  display: flex;
+  flex-direction: row;
+}
+
+
 /* Fight Environment Styling Start */
 
 .battleground {
@@ -54,3 +65,12 @@ body {
 .opponent {}
 
 /* Fight Environment Styling End */
+.card{
+  width: 10em;
+  height: 14em;
+}
+
+.random-selection{
+  display: flex;
+  flex-direction: row;
+}
