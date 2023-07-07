@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import axios, { AxiosError } from "axios";
-
-export default function FetchRandomPokemon({ playerName, pokemonAmount }) {
+import PokemonCard from "./PokemonCard";
+import "../App.css"
+export default function FetchRandomPokemon({ playerName, pokemonAmount, selection, setSelection }) {
   const [randomSelection, setRandomSelection] = useState([]);
+
 
   useEffect(() => {
     axios
@@ -16,23 +18,26 @@ export default function FetchRandomPokemon({ playerName, pokemonAmount }) {
             randomPokeList[i],
           ];
         }
-
-        const selection = randomPokeList.slice(0, pokemonAmount);
-        setRandomSelection(selection);
-        console.log(selection);
+        const random = randomPokeList.slice(0, pokemonAmount);
+        setRandomSelection(random);
+        console.log(random);
       })
       .catch((err) => console.error(err, "URL not found"));
   }, []);
 
+ 
+
+  
   return (
     <>
-      <div className="player">
-        <h1>player {playerName}</h1>
-        {randomSelection != [] &&
+      <div className="random-Selection" >
+        {randomSelection != [] && 
+         !selection &&
           randomSelection.map((pokemon) => {
             return (
-              <div key={pokemon.id}>
-                <h3>{pokemon.name.english}</h3>
+              <div key={pokemon.id}  onClick={() => setSelection(pokemon.id)} >
+
+                <PokemonCard pokemon={pokemon} selection={selection} setSelection={setSelection}/>
               </div>
             );
           })}
